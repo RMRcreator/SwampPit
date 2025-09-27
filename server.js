@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 //this will take us to the profiles page
 app.get('/profiles', (req, res) => {
-    res.render('profiles', {topic: 'People profiles'});
+    res.render('profileList', {topic: 'People profiles'});
     //res.send("It should have apunch of profiles on here");
 });
 
