@@ -1,0 +1,23 @@
+{
+  "name": "swamppit",
+  "version": "1.0.0",
+  "description": "THIS IS THE TEST OF THE READ ME FILE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RMRcreator/SwampPit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RMRcreator/SwampPit/issues"
+  },
+  "homepage": "https://github.com/RMRcreator/SwampPit#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
