@@ -21,7 +21,28 @@ app.get('/profiles', (req, res) => {
 });
 
 
-// Start the server
+//access the database and print the database names
+const {MongoClient} = require('mongodb');
+async function listDatabases(client){
+    databasesList = await client.db().admin().listDatabases();
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - $SwampPit`));
+};
+async function main(){
+    const uri = "mongodb+srv://gator:gogators12345@swamppit.sawchly.mongodb.net/?retryWrites=true&w=majority&appName=SwampPit"
+    const client = new MongoClient(uri); 
+
+    try {
+        await client.connect();
+        await listDatabases(client);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+main().catch(console.error);
+
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
