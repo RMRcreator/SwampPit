@@ -1,0 +1,50 @@
+<!-- SwampPit — smiling gator icon (transparent background) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" aria-label="SwampPit logo" role="img">
+  <defs>
+    <style>
+      .g1{fill:#2FBF71}       /* main green */
+      .g2{fill:#A7EAC0}       /* light muzzle */
+      .d{fill:#0F3D2E}        /* dark details */
+      .w{fill:#ffffff}
+      .p{fill:#152A21}        /* pupils */
+      .s{stroke:#152A21;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .sh{opacity:.12}        /* soft shadow */
+    </style>
+  </defs>
+
+  <!-- soft shadow (optional, looks nice on light backgrounds) -->
+  <ellipse class="sh" cx="64" cy="106" rx="34" ry="8"/>
+
+  <!-- head blob -->
+  <path class="g1" d="M24,62c0-19,17-34,40-34s40,15,40,34c0,10-3,18-10,24c-7,6-17,10-30,10s-23-4-30-10c-7-6-10-14-10-24Z"/>
+
+  <!-- lighter muzzle -->
+  <rect class="g2" x="30" y="64" width="68" height="30" rx="14"/>
+
+  <!-- nostrils -->
+  <circle class="d" cx="48" cy="79" r="3.2"/>
+  <circle class="d" cx="80" cy="79" r="3.2"/>
+
+  <!-- smile -->
+  <path class="s" d="M44 86c6 6 34 6 40 0"/>
+
+  <!-- tiny teeth -->
+  <path class="w" d="M57 78l4 7l4-7z"/>
+  <path class="w" d="M69 78l4 7l4-7z"/>
+
+  <!-- eyes (friendly) -->
+  <circle class="w" cx="46" cy="52" r="10"/>
+  <circle class="w" cx="82" cy="52" r="10"/>
+  <circle class="p" cx="48" cy="54" r="4"/>
+  <circle class="p" cx="80" cy="54" r="4"/>
+  <circle class="w" cx="46.8" cy="52.8" r="1.6"/>
+  <circle class="w" cx="78.8" cy="52.8" r="1.6"/>
+
+  <!-- subtle brow ridges -->
+  <path class="s" d="M38 46c4-3 9-4 14-2"/>
+  <path class="s" d="M88 46c-4-3-9-4-14-2"/>
+
+  <!-- cheek dimples -->
+  <circle class="g2" cx="32.5" cy="74" r="4.5"/>
+  <circle class="g2" cx="95.5" cy="74" r="4.5"/>
+</svg>

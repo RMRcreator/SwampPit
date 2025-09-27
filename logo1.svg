@@ -1,0 +1,34 @@
+<!-- SwampPit wordmark (transparent background) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" role="img" aria-label="SwampPit wordmark">
+  <defs>
+    <!-- colors -->
+    <linearGradient id="swampGrad" x1="0" x2="1">
+      <stop offset="0%"  stop-color="#2FBF71"/>
+      <stop offset="100%" stop-color="#16A34A"/>
+    </linearGradient>
+    <style>
+      .word { font-family: "Poppins", "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; letter-spacing: .5px; }
+      .pit  { fill:#0B3B8C; font-weight: 900; }   /* deep blue for “Pit” */
+      .swamp{ fill: url(#swampGrad); }            /* green gradient for “Swamp” */
+      .wave { fill:#A7EAC0; opacity:.9; }         /* soft swamp wave */
+      .shadow{ fill:#000; opacity:.08; }
+    </style>
+  </defs>
+
+  <!-- soft base shadow -->
+  <ellipse class="shadow" cx="320" cy="140" rx="200" ry="14"/>
+
+  <!-- the word -->
+  <text x="50%" y="95" text-anchor="middle" font-size="64" class="word swamp">
+    Swamp<tspan class="pit">Pit</tspan>
+  </text>
+
+  <!-- subtle swamp wave underline -->
+  <path class="wave"
+        d="M140,118
+           Q 180,104 220,118
+           T 300,118
+           T 380,118
+           T 460,118
+           L 460,130 140,130 Z"/>
+</svg>
