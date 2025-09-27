@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 
 app.set('views', path.join(__dirname, 'views'));
 
-// routing path
+// routing path to home page
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
@@ -20,28 +20,18 @@ app.get('/profiles', (req, res) => {
     //res.send("It should have apunch of profiles on here");
 });
 
-
-//access the database and print the database names
-const {MongoClient} = require('mongodb');
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - $SwampPit`));
-};
-async function main(){
-    const uri = "mongodb+srv://gator:gogators12345@swamppit.sawchly.mongodb.net/?retryWrites=true&w=majority&appName=SwampPit"
-    const client = new MongoClient(uri); 
-
-    try {
-        await client.connect();
-        await listDatabases(client);
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
-    }
-}
-main().catch(console.error);
+//access the database with mongoose
+const mongoose = require('mongoose');
+async function connectDB() {
+            try {
+                const uri = "mongodb+srv://gator:gogators12345@swamppit.sawchly.mongodb.net/?retryWrites=true&w=majority&appName=SwampPit";
+                await mongoose.connect(uri);
+                console.log('Connected to MongoDB Atlas');
+            } catch (err) {
+                console.error('Error connecting to MongoDB Atlas:', err);
+            }
+        }
+connectDB()
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
