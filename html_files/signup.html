@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign Up</title>
+    </head>
+    <body>
+        <p>Create a new account!</p>
+        <form id="signup-form">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+
+            <button type="submit">Create Account</button>
+
+            <p id="message"></p>
+
+            <script>
+                const form = document.getElementById("signup-form");
+                // listen for submit
+                form.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                
+                // get input values
+                const userEmail = document.getElementById("email").value;
+                const userPass = document.getElementById("password").value;
+
+                // send JSON to backend
+                const response = await fetch("/signup", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ userEmail, userPass})
+                });
+
+                // get response from backend
+                const result = await response.json();
+                document.getElementById("message").textContent = result.message;
+                });
+
+            </script>
+        </form>
+    </body>
+</html>
