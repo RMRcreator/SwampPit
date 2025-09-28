@@ -26,6 +26,10 @@ const ProfileSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        Username: {
+            type: String,
+            required: false,
+        }
     },
 );
 

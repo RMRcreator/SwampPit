@@ -91,11 +91,28 @@ app.post('/set-profile', async (req, res) => {
             Year: year,
             Major: major,
             Classes: classes,
-            Interests: interests
+            Interests: interests,
+            Username: req.session.username,
         })
-
-        await newProfile.save()
-        res.redirect('/profiles') 
+        
+        // if they have a profile, update existing one. else make a new profile
+        const currentUser = await User.findOne({ username : req.session.username });
+        if (currentUser.hasProfile){
+            await Profile.updateOne({ Username: req.session.username }, {$set: {
+                Name: name,
+                Age: age,
+                Year: year,
+                Major: major,
+                Classes: classes,
+                Interests: interests,
+                Username: req.session.username,
+                }
+            });
+        } else{
+            await newProfile.save();
+            await User.updateOne({ username: req.session.username }, { $set: {hasProfile: true}});
+        }
+        res.json({success: true, message: `Your profile was saved!`})
     } catch (err) {
         console.error(err)
         res.status(500).send('Error saving profile')
