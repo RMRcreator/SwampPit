@@ -108,6 +108,37 @@ app.post('/signup', async (req, res) => {
     }
 });
 
+
+//log in
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, "html_files", "login.html"))
+})
+
+app.post('/login', async (req, res) => {
+    console.log("Data recieved from form:", req.body);
+    try {
+        const { userEmail, userPass } = req.body;
+        const user = await User.findOne({ username: userEmail });
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+        const storedHash = user.passwordHash;
+        const match = await bcrypt.compare(userPass, storedHash);
+
+        
+        if (match) {
+            res.json({ success: true, message: "Login successful"});
+        }
+        else {
+            res.json({message: "Error logging in, check your email and password."});
+        }
+    }
+    catch (err) {
+        res.status(500).json({message: "Error logging in."});
+    }
+});
+
+
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
