@@ -96,8 +96,9 @@ color:var(--purple);text-decoration:none}
 <body>
 <div class="wrap">
 <div class="top">
-<a class="btn" href="/login">Log in</a>
-<a class="btn" href="/signup">Sign up</a>
+<a class="btn" href="/login">Log In</a>
+<a class="btn" href="/signup">Sign Up</a>
+<a class="btn" href="/set-profile">Update Profile</a>
 </div>
 
 <section class="hero">
