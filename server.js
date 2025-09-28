@@ -6,9 +6,15 @@ const path = require('path');
 const User = require('./models/User.js');
 // for the password hashing
 const bcrypt = require('bcryptjs');
+const session = require('express-session');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({
+    secret: "signing key for cookies",
+    resave: false,
+    saveUnitialized: false
+}))
 
 
 //using this to make the profile pages dynamic
@@ -29,6 +35,15 @@ async function connectDB() {
         }
 connectDB()
 
+//authentication setup
+const isAuth = (req, res, next) => {
+    if (req.session.isAuth) {
+        next()
+    } else {
+        res.redirect('/login');
+    }
+}
+
 // routing path to home page
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -36,7 +51,7 @@ app.get('/', (req, res) => {
 
 
 // this will take us to the profiles page
-app.get('/profiles', async (req, res) => {
+app.get('/profiles', isAuth, async (req, res) => {
     try {
         const searchQuery = req.query.q; // text from ?q=...
         let filter = {};
@@ -63,7 +78,7 @@ app.get('/profiles', async (req, res) => {
 
 
 
-app.get('/set-profile', (req, res) =>{
+app.get('/set-profile', isAuth, (req, res) =>{
     res.render('ProfileCreation');
 })
 
@@ -101,7 +116,7 @@ app.post('/signup', async (req, res) => {
         const newUser = new User({username: userEmail, passwordHash: hashedPass});
         await newUser.save();
 
-        res.json({message: `Your account was created, ${req.body.userEmail}!`})
+        res.json({success: true, message: `Your account was created, ${req.body.userEmail}!`})
     }
     catch (err) {
         res.status(500).json({message: "Error creating user. Please try again. Email must be unique."});
@@ -127,6 +142,7 @@ app.post('/login', async (req, res) => {
 
         
         if (match) {
+            req.session.isAuth = true;
             res.json({ success: true, message: "Login successful"});
         }
         else {
