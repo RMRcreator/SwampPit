@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const Profile = require('C:\\Users\\russm\\SwampPitDev\\SwampPit\\Models\\profileSchema.js')
+const Profile = require(__dirname,'profileSchema.js')
 const path = require('path');
 
 //using this to make the profile pages dynamic
