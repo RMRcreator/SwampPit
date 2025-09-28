@@ -152,7 +152,7 @@ app.get('/set-profile', isAuth, (req, res) =>{
 
 app.post('/set-profile', async (req, res) => {
     try {
-        const {name, age, year, major, classes, interests} = req.body;
+        const {name, age, year, major, classes, interests, insta} = req.body;
         const newProfile = new Profile({
             Name: name,
             Age: age,
@@ -160,8 +160,7 @@ app.post('/set-profile', async (req, res) => {
             Major: major,
             Classes: classes,
             Interests: interests,
-            Username: req.session.username,
-            Interests: interests,
+            Instagram: insta,
             Username: req.session.username,
         })
         
@@ -175,6 +174,7 @@ app.post('/set-profile', async (req, res) => {
                 Major: major,
                 Classes: classes,
                 Interests: interests,
+                Instagram: insta,
                 Username: req.session.username,
                 }
             });

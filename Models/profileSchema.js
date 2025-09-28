@@ -29,7 +29,11 @@ const ProfileSchema = new mongoose.Schema(
         Username: {
             type: String,
             required: false,
-        }
+        },
+        Instagram: {
+            type: String,
+            required: false,
+        },
     },
 );
 

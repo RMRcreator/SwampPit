@@ -44,6 +44,9 @@
     <label for="Interests">Interest</label>
     <textarea id = "Interests" name="Interests" row="4" required></textarea>
 
+    <label for="Instagram">Instagram</label>
+    <input type="text" id="Instagram" name="Interests" required></input>
+
     <button type="submit">Create Profile</button>
 </form>
 <p id="message"></p>
@@ -58,11 +61,12 @@
         const major = document.getElementById("Major").value;
         const classes = document.getElementById("Classes").value;
         const interests = document.getElementById("Interests").value;
+        const insta = document.getElementById("Instagram").value;
 
         const response = await fetch('/set-profile', {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({ name, age, year, major, classes, interests})
+            body: JSON.stringify({ name, age, year, major, classes, interests, insta})
         });
 
         const result = await response.json();
