@@ -55,12 +55,12 @@ app.get('/setup', (req, res) =>{
 app.post('/set-profile', async (req, res) => {
     try {
         const newProfile = new Profile({
-            name: req.body.name,
-            age: req.body.age,
-            year: req.body.year,
-            major: req.body.major,
-            classes: req.body.classes,
-            interests: req.body.interests
+            Name: req.body.Name,
+            Age: req.body.Age,
+            Year: req.body.Year,
+            Major: req.body.Major,
+            Classes: req.body.Classes,
+            Interests: req.body.Interests
         })
 
         await newProfile.save()
