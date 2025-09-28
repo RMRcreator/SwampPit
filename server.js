@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-
+const Profile = require('C:\\Users\\russm\\SwampPitDev\\SwampPit\\Models\\profileSchema.js')
 const path = require('path');
 
 //using this to make the profile pages dynamic
@@ -19,6 +19,24 @@ app.get('/profiles', (req, res) => {
     res.render('profileList', {topic: 'People profiles'});
     //res.send("It should have apunch of profiles on here");
 });
+
+app.get('/setup', (req, res) =>{
+    res.render('ProfileCreation');
+})
+
+app.post('/set-profile', async (req, res) => {
+    const newProfile = new Profile({
+        name: req.body.name,
+        age: req.body.age,
+        year: req.body.year,
+        major: req.body.major,
+        classes: req.body.classes,
+        interests: req.body.interests
+    });
+    await newProfile.save();
+
+    
+})
 
 //access the database with mongoose
 const mongoose = require('mongoose');
