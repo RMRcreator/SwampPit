@@ -15,11 +15,6 @@ app.use(session({
     resave: false,
     saveUnitialized: false
 }))
-app.use(session({
-    secret: "signing key for cookies",
-    resave: false,
-    saveUnitialized: false
-}))
 
 
 //using this to make the profile pages dynamic
