@@ -55,5 +55,9 @@
 
         const result = await response.json();
         document.getElementById("message").textContext = result.message || result.error;
+        if (result.success){
+            window.location.href ="/profiles";
+        }
     });
 </script>
+

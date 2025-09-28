@@ -15,6 +15,11 @@ app.use(session({
     resave: false,
     saveUnitialized: false
 }))
+app.use(session({
+    secret: "signing key for cookies",
+    resave: false,
+    saveUnitialized: false
+}))
 
 
 //using this to make the profile pages dynamic
@@ -44,7 +49,6 @@ const isAuth = (req, res, next) => {
     }
 }
 
-// testing!!!!!!!
 const fs = require('fs');
 
 // Serve /assets/* (where your logo file lives)
@@ -53,19 +57,6 @@ app.use('/assets', express.static(ASSETS_DIR));
 
 // User data file
 const USERS_FILE = path.resolve(__dirname, 'users.json');
-
-// Helpers for loading/saving users
-// function loadUsers() {
-// try {
-// const raw = fs.readFileSync(USERS_FILE, 'utf-8');
-// return JSON.parse(raw);
-// } catch {
-// return [];
-// }
-// }
-// function saveUsers(users) {
-// fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
-// }
 
 // Simple helper: find a file named "logo" with a common image extension
 function getLogoUrl() {
@@ -79,136 +70,6 @@ return chosen ? `/assets/${chosen}` : null;
 return null;
 }
 }
-
-
-
-// // GET /login page
-// app.get('/login', (req, res) => {
-// res.type('html').send(`
-// <!doctype html>
-// <html>
-// <head>
-// <meta charset="utf-8"/>
-// <meta name="viewport" content="width=device-width,initial-scale=1"/>
-// <title>Log in — SwampPit</title>
-// <style>
-// body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial;margin:0;background:#ffffff;color:#111827}
-// .wrap{max-width:420px;margin:0 auto;padding:24px}
-// h1{font-size:28px;margin:24px 0}
-// form{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px}
-// label{display:block;font-size:14px;margin:12px 0 6px}
-// input{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px}
-// .btn{width:100%;margin-top:16px;padding:12px;border:0;border-radius:12px;background:#7c3aed;color:#fff}
-// .btn:hover{filter:brightness(0.95)}
-// a{color:#7c3aed;text-decoration:none}
-// </style>
-// </head>
-// <body>
-// <div class="wrap">
-// <a href="/">← Back</a>
-// <h1>Log in</h1>
-// <form method="POST" action="/login">
-// <label>Email</label>
-// <input type="email" name="email" required placeholder="you@example.com"/>
-// <label>Password</label>
-// <input type="password" name="password" required placeholder="••••••••"/>
-// <button class="btn">Log in</button>
-// </form>
-// <p style="margin-top:16px;font-size:14px;">Don’t have an account? <a href="/signup">Sign up</a></p>
-// </div>
-// </body>
-// </html>
-// `);
-// });
-
-// // POST /login — checks credentials
-// app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
-// const { email, password } = req.body;
-// const users = loadUsers();
-
-// const user = users.find(u => u.email === email && u.password === password);
-// if (!user) {
-// return res.send(`
-// <p style="color:red;">Invalid credentials.</p>
-// <a href="/login">← Back to Log in</a>
-// `);
-// }
-
-// res.send(`
-// <h1>Welcome back, ${user.name}!</h1>
-// <p>You are now logged in.</p>
-// <a href="/">← Home</a>
-// `);
-// });
-
-// // GET /signup page
-// app.get('/signup', (req, res) => {
-// res.type('html').send(`
-// <!doctype html>
-// <html>
-// <head>
-// <meta charset="utf-8"/>
-// <meta name="viewport" content="width=device-width,initial-scale=1"/>
-// <title>Sign up — SwampPit</title>
-// <style>
-// body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial;margin:0;background:#ffffff;color:#111827}
-// .wrap{max-width:420px;margin:0 auto;padding:24px}
-// h1{font-size:28px;margin:24px 0}
-// form{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px}
-// label{display:block;font-size:14px;margin:12px 0 6px}
-// input{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px}
-// .btn{width:100%;margin-top:16px;padding:12px;border:0;border-radius:12px;background:#7c3aed;color:#fff}
-// .btn:hover{filter:brightness(0.95)}
-// a{color:#7c3aed;text-decoration:none}
-// </style>
-// </head>
-// <body>
-// <div class="wrap">
-// <a href="/">← Back</a>
-// <h1>Sign up</h1>
-// <form method="POST" action="/signup">
-// <label>Name</label>
-// <input type="text" name="name" required placeholder="Your full name"/>
-// <label>Email</label>
-// <input type="email" name="email" required placeholder="you@example.com"/>
-// <label>Password</label>
-// <input type="password" name="password" required placeholder="Choose a password"/>
-// <button class="btn">Sign up</button>
-// </form>
-// <p style="margin-top:16px;font-size:14px;">Already have an account? <a href="/login">Log in</a></p>
-// </div>
-// </body>
-// </html>
-// `);
-// });
-
-// // POST /signup — creates a new user
-// app.post('/signup', express.urlencoded({ extended: true }), (req, res) => {
-// const { name, email, password } = req.body;
-// const users = loadUsers();
-
-// const exists = users.find(u => u.email === email);
-// if (exists) {
-// return res.send(`
-// <p style="color:red;">Email already exists.</p>
-// <a href="/signup">← Back to Sign up</a>
-// `);
-// }
-
-// users.push({ name, email, password });
-// saveUsers(users);
-
-// res.send(`
-// <p>Welcome, ${name}! Your account has been created.</p>
-// <a href="/login">→ Continue to Log in</a>
-// `);
-// });
-
-// // Start the server
-// app.listen(3000, () => {
-// console.log('SwampPit running on http://localhost:3000');
-// });
-// // testing!!!!!
 
 
 // Home page
@@ -263,7 +124,7 @@ Put your file as <code>assets/logo.svg</code> (or .png/.jpg/.webp/.gif) and refr
 
 
 // this will take us to the profiles page
-app.get('/profiles', async (req, res) => {
+app.get('/profiles', isAuth, async (req, res) => {
     try {
         const searchQuery = req.query.q; // text from ?q=...
         let filter = {};
@@ -290,7 +151,7 @@ app.get('/profiles', async (req, res) => {
 
 
 
-app.get('/set-profile', (req, res) =>{
+app.get('/set-profile', isAuth, (req, res) =>{
     res.render('ProfileCreation');
 })
 
@@ -305,7 +166,28 @@ app.post('/set-profile', async (req, res) => {
             Classes: classes,
             Interests: interests,
             Username: req.session.username,
+            Interests: interests,
+            Username: req.session.username,
         })
+        
+        // if they have a profile, update existing one. else make a new profile
+        const currentUser = await User.findOne({ username : req.session.username });
+        if (currentUser.hasProfile){
+            await Profile.updateOne({ Username: req.session.username }, {$set: {
+                Name: name,
+                Age: age,
+                Year: year,
+                Major: major,
+                Classes: classes,
+                Interests: interests,
+                Username: req.session.username,
+                }
+            });
+        } else{
+            await newProfile.save();
+            await User.updateOne({ username: req.session.username }, { $set: {hasProfile: true}});
+        }
+        res.json({success: true, message: `Your profile was saved!`})
        
         // if they have a profile, update existing one. else make a new profile
         const currentUser = await User.findOne({ username : req.session.username });
