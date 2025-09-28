@@ -1,7 +1,11 @@
 const express = require('express')
 const app = express()
-const Profile = require(__dirname,'profileSchema.js')
+const Profile = require('./Models/profileSchema.js')
 const path = require('path');
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 
 //using this to make the profile pages dynamic
 app.set('view engine', 'ejs');
@@ -15,28 +19,41 @@ app.get('/', (req, res) => {
 
 
 //this will take us to the profiles page
-app.get('/profiles', (req, res) => {
-    res.render('profileList', {topic: 'People profiles'});
-    //res.send("It should have apunch of profiles on here");
+app.get('/profiles', async (req, res) => {
+    try {
+        const profiles = await Profile.find();   // fetch profiles from MongoDB
+        res.render('profileList', { topic: 'People profiles', profiles });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching profiles');
+    }
 });
+
+
 
 app.get('/setup', (req, res) =>{
     res.render('ProfileCreation');
 })
 
 app.post('/set-profile', async (req, res) => {
-    const newProfile = new Profile({
-        name: req.body.name,
-        age: req.body.age,
-        year: req.body.year,
-        major: req.body.major,
-        classes: req.body.classes,
-        interests: req.body.interests
-    });
-    await newProfile.save();
+    try {
+        const newProfile = new Profile({
+            name: req.body.name,
+            age: req.body.age,
+            year: req.body.year,
+            major: req.body.major,
+            classes: req.body.classes,
+            interests: req.body.interests
+        })
 
-    
+        await newProfile.save()
+        res.redirect('/profiles') // <-- add this line
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error saving profile')
+    }
 })
+
 
 //access the database with mongoose
 const mongoose = require('mongoose');
