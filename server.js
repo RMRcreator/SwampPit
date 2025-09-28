@@ -35,16 +35,31 @@ app.get('/', (req, res) => {
 });
 
 
-//this will take us to the profiles page
+// this will take us to the profiles page
 app.get('/profiles', async (req, res) => {
     try {
-        const profiles = await Profile.find();   // fetch profiles from MongoDB
-        res.render('profileList', { topic: 'People profiles', profiles });
+        const searchQuery = req.query.q; // text from ?q=...
+        let filter = {};
+
+        if (searchQuery) {
+            // Look for matches in Name, Major, or Year (case-insensitive)
+            filter = {
+                $or: [
+                    { Name: new RegExp(searchQuery, 'i') },
+                    { Major: new RegExp(searchQuery, 'i') },
+                    { Year: new RegExp(searchQuery, 'i') },
+                ]
+            };
+        }
+
+        const profiles = await Profile.find(filter);   // fetch profiles with filter
+        res.render('profileList', { topic: 'People profiles', profiles, q: searchQuery});
     } catch (err) {
         console.error(err);
         res.status(500).send('Error fetching profiles');
     }
 });
+
 
 
 
