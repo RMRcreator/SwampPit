@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+</head>
+<body>
+  <h1>Profile List</h1>
+  <p>Feel free to explore and find new friends!!</p>
+  <a href="/">Go Home</a>
+</body>
+</html>
+
+
+<html>
+<head>
+  <title>Profiles Homepage</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Profiles</h1>
+  </header>
+
+  <form action="/profiles" method="get">
+  <input 
+    type="text" 
+    name="q" 
+    placeholder="Search by name, major, etc." 
+    value="<%= typeof q !== 'undefined' ? q : '' %>">
+  <button type="submit">Search</button>
+  </form>
+
+
+  <main>
+    
+      <% profiles.forEach(profile => { %>
+        
+        <div class="profile-card">
+          <!--<img src="<%= profile.picture %>" alt="<%= profile.name %>'s photo"> -->
+          <p>Name: <%= profile.Name %></p>
+          <p>Age: <%= profile.Age %></p>
+          <p>Year: <%= profile.Year %></p>
+          <p>Major: <%= profile.Major %></p>
+          <p>Classes: <%= profile.Classes %></p>
+          <p>Interests: <%= profile.Interests %></p>
+        <div>
+        </div>
+        <hr>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>

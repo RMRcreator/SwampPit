@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Set Up Profile</title>
+    </head>
+</html>
+<form action="/set-profile" id="set-profile" method = "POST">
+    <h1>Enter Profile Information</h1>
+    <label for="text">Name</label>
+    <input type="text" id="Name" name="Name" required>
+
+    <label for="text">Age</label>
+    <input type="text" id="Age" name="Age" required>
+
+    <label for="text">Year</label>
+    <select id="Year" name="Year" required>
+        <option value="freshmen">Freshmen</option>
+        <option value="Sophomore">Sophomore</option>
+        <option value="Junior">Junior</option>
+        <option value="Senior">Senior</option>
+        <option value="Graduate Student">Graduate Student</option>
+    </select>
+
+    <label for="text">Major</label>
+    <input type="text" id="Major" name="Major" required>
+
+    <label for="Classes">Classes</label>
+    <textarea id="Classes" name = "Classes" row="2" required></textarea>
+
+    <label for="Interests">Interest</label>
+    <textarea id = "Interests" name="Interests" row="4" required></textarea>
+
+    <button type="submit">Create Profile</button>
+</form>
+<p id="message"></p>
+
+<script>
+    document.getElementById("set-profile").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("Name").value;
+        const age = document.getElementById("Age").value;
+        const year = document.getElementById("Year").value;
+        const major = document.getElementById("Major").value;
+        const classes = document.getElementById("Classes").value;
+        const interests = document.getElementById("Interests").value;
+
+        const response = await fetch('/set-profile', {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({ name, age, year, major, classes, interests})
+        });
+
+        const result = await response.json();
+        document.getElementById("message").textContext = result.message || result.error;
+    });
+</script>
