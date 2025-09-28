@@ -36,6 +36,10 @@
                 // get response from backend
                 const result = await response.json();
                 document.getElementById("message").textContent = result.message;
+                
+                if (result.success) {
+                    window.location.href ="/set-profile";
+                }
                 });
 
             </script>

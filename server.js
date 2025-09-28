@@ -116,6 +116,8 @@ app.post('/signup', async (req, res) => {
         const newUser = new User({username: userEmail, passwordHash: hashedPass});
         await newUser.save();
 
+        req.session.isAuth = true;
+        req.session.username = newUser.username;
         res.json({success: true, message: `Your account was created, ${req.body.userEmail}!`})
     }
     catch (err) {
@@ -143,7 +145,8 @@ app.post('/login', async (req, res) => {
         
         if (match) {
             req.session.isAuth = true;
-            res.json({ success: true, message: "Login successful"});
+            req.session.username = user.username;
+            res.json({ sessUser: user.username, success: true, message: "Login successful"});
         }
         else {
             res.json({message: "Error logging in, check your email and password."});
