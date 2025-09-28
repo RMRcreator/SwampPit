@@ -130,7 +130,7 @@ app.get('/profiles', isAuth, async (req, res) => {
                 $or: [
                     { Name: new RegExp(searchQuery, 'i') },
                     { Major: new RegExp(searchQuery, 'i') },
-                    { Year: new RegExp(searchQuery, 'i') },
+                    { Age: new RegExp(searchQuery, 'i') },
                 ]
             };
         }
