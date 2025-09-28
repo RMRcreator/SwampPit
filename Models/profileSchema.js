@@ -27,7 +27,6 @@ const ProfileSchema = new mongoose.Schema(
             required: true,
         },
     },
-    { timestamps: true}
 );
 
 const Profile = mongoose.model('profile', ProfileSchema);

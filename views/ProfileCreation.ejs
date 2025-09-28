@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Set Up Profile</title>
     </head>
 </html>
 <form action="/set-profile" id="set-profile" method = "POST">
@@ -31,7 +32,7 @@
     <label for="Interests">Interest</label>
     <textarea id = "Interests" name="Interests" row="4" required></textarea>
 
-    <button type="submit">Create Profile</button>button>
+    <button type="submit">Create Profile</button>
 </form>
 <p id="message"></p>
 
@@ -46,7 +47,7 @@
         const classes = document.getElementById("Classes").value;
         const interests = document.getElementById("Interests").value;
 
-        const response = await fetch('https://localhost:3000/set-profile', {
+        const response = await fetch('/set-profile', {
             method: "POST",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify({ name, age, year, major, classes, interests})
@@ -54,5 +55,5 @@
 
         const result = await response.json();
         document.getElementById("message").textContext = result.message || result.error;
-    })
+    });
 </script>
