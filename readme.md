@@ -4,3 +4,5 @@ To run SwampPit:
 2. Run server.js
 3. Press the sign up button
 4. Create a username and password
+5. Fill out all of the profile information
+6. You will then be taken to a list of user profiles
