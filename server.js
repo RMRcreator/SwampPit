@@ -48,7 +48,7 @@ app.get('/profiles', async (req, res) => {
 
 
 
-app.get('/setup', (req, res) =>{
+app.get('/set-profile', (req, res) =>{
     res.render('ProfileCreation');
 })
 
