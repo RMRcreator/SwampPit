@@ -47,7 +47,7 @@ app.post('/set-profile', async (req, res) => {
         })
 
         await newProfile.save()
-        res.redirect('/profiles') // <-- add this line
+        res.redirect('/profiles') 
     } catch (err) {
         console.error(err)
         res.status(500).send('Error saving profile')
